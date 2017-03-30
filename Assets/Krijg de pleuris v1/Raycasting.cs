@@ -20,8 +20,10 @@ public class Raycasting : MonoBehaviour {
 		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (ray, out hit) && hit.transform.tag == "Item") {
 			hit.transform.position = mousePos;
-		} else if (Physics.Raycast (ray, out hit) && hit.transform.tag == "Inventory" && Input.GetMouseButtonDown(0)){
-			inventorybehaviour.GetItem (itemname, amountOfObjectsRetrieved);
+		} else if (Physics.Raycast (ray, out hit) && hit.transform.tag == "Inventory" && Input.GetMouseButtonDown (0)){
+			InventoryBehaviour jeboi = hit.transform.gameObject.GetComponent<InventoryBehaviour> ();
+			print (jeboi.transform.position);
+			jeboi.GetItem (itemname, amountOfObjectsRetrieved);
 		}
 	}
 }
