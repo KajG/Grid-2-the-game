@@ -9,13 +9,14 @@ public class InventoryBehaviour : MonoBehaviour {
 	public List <GameObject> _objects = new List<GameObject>();
 	public Raycasting raycasting;
 	public GameObject previewItem;
-	public GameObject _cube;
 	public TextMesh _itemCount;
-	public string itemname;
 	private int j;
 
 	void Start () {
 		raycasting = raycasting.GetComponent<Raycasting> ();
+	}
+	void Update(){
+		print (_items.Count);
 	}
 	public void AddItem(string itemname, GameObject obj){
 		if (_items.ContainsKey (itemname)) {
@@ -25,7 +26,7 @@ public class InventoryBehaviour : MonoBehaviour {
 			_items.Add(itemname, new List<GameObject>());
 			ItemPreview (obj);
 			_items[itemname].Add(obj); 
-			print (_items[itemname].Count);
+			print (_items[itemname]);
 		}
 		UpdateItemCounter (itemname);
 	}
@@ -33,7 +34,7 @@ public class InventoryBehaviour : MonoBehaviour {
 		for (int i = 0; i < amount; i++) {
 			j++;	
 			GameObject obj = Instantiate (_items [itemname][0], new Vector3 (j + 19, 0, -8), Quaternion.identity);
-			obj.name = (itemname);
+			//obj.name = (itemname);
 			Destroy (_items [itemname] [0]);
 			_items [itemname].RemoveAt (0);
 			UpdateItemCounter (itemname);
@@ -41,10 +42,11 @@ public class InventoryBehaviour : MonoBehaviour {
 					_items.Remove (itemname);
 					ItemPreviewRemove ();
 				}
-		}
+			}
 	}
 	void ItemPreview(GameObject obj){
 		previewItem = Instantiate (obj, new Vector3 (transform.position.x, transform.position.y, -11), Quaternion.identity);
+		previewItem.tag = "Test";
 	}
 	void ItemPreviewRemove(){
 		Destroy (previewItem);
